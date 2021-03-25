@@ -6,8 +6,10 @@ using namespace std;
 int main()
 {
 	Matrix a(1, 2);
+	a.take_input();
 	Matrix b(2, 3);
-	
+	b.take_input();
+	/*
 	a.mat[0][0] = 1;
 	a.mat[0][1] = 2;
 	
@@ -17,6 +19,7 @@ int main()
 	b.mat[1][0] = 98;
 	b.mat[1][1] = 12;
 	b.mat[1][2] = 33;
+	*/
 	
 	a.print_matrix();
 	b.print_matrix();

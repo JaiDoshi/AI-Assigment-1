@@ -17,6 +17,20 @@ Matrix(int m, int n)
 	mat.resize(m, vector<double>(n));
 }
 
+void take_input()
+{
+	for(int i=0; i<m; ++i)
+	{
+		cout << "Enter row " << i << ": ";
+		for(int j=0; j<n; ++j)
+		{
+			cin >> mat[i][j];
+		}
+	}
+	
+	cout << endl;
+}
+
 static Matrix mult(Matrix & m1, Matrix & m2){
 if(m1.n != m2.m)
   {
