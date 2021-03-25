@@ -1,24 +1,53 @@
+#include <vector>
+#include <iostream>
 
-  class matrix{
-  vector<vector<double>> create(int m , int n ){
-    vector<vector<double>> mat(m, vector<double>(n,0));
-    return mat;
-  }
+using namespace std;
 
-  vector<vector<int>> mult(vector<vector<double>> v1, vector<vector<double>> v2){
-    if(v1[0].size() != v2.size())
-      {
-        printf("invalid input");
-        return nullptr;
-      }
-      vector<vector<double>> v(v1.size(),vector<double>(v2[0].size(),0));
-      for(int i = 0 ; i<v1.size(); i++){
-        for(int j = 0 ; j<v2[0].size() ; j++){
-          for(int k = 0 ; k<v2.size() ; k++){
-            v[i][j] += v1[i][k]*v2[k][j];
-          }
-        }
-      }
-      return v;
-    }
+class Matrix{
+
+public:
+
+int m, n;
+vector<vector<double>> mat;
+
+Matrix(int m, int n)
+{
+	this->m = m;
+	this->n = n;
+	mat.resize(m, vector<double>(n));
+}
+
+static Matrix mult(Matrix & m1, Matrix & m2){
+if(m1.n != m2.m)
+  {
+	cout << "Invalid input!" << endl;
+	return Matrix(0, 0);
   }
+  
+  Matrix prod (m1.m, m2.n);
+  for(int i = 0 ; i<m1.m; i++){
+	for(int j = 0 ; j<m2.n ; j++){
+	  for(int k = 0 ; k<m1.n ; k++){
+		prod.mat[i][j] += m1.mat[i][k]*m2.mat[k][j];
+	  }
+	}
+  }
+  return prod;
+}
+  
+void print_matrix()
+{
+	cout << endl;
+	for(int i=0; i<m; ++i)
+	{
+		cout << "[ ";
+		for(int j=0; j<n; ++j)
+		{
+			cout << mat[i][j] << " ";
+		}
+		
+		cout << "]" << endl;
+	}
+	cout << endl;
+}
+};
