@@ -19,23 +19,23 @@ class State{
   }
 
 
-  State nth(State initial , Matrix transProb){
+  State nth(State initial /*,Matrix transProb*/){
     State fin = initial;
     for(int i = 0 ; i<initial.m ; i++){
-      fin.s = mult(fin.s,transProb);
+      fin.s = fin.s.mult(fin.s,initial.transProb);
     }
     return fin;
   }
 
-  State eq(State initial , Matrix transProb){
+  State equi(State initial /*,Matrix transProb*/){
     State fin = initial;
     State prev = fin;
     Matrix dev(m,1) ;
     int i = 1;
     while(dev[i-1] >= 0.0001){
       prev.s = fin.s;
-      fin.s = mult(fin.s,transProb);
-      dev.mat[i][1] = calcDev(fin,prev);
+      fin.s = fin.s.mult(fin.s,initial.transProb);
+      dev.mat[i][1] = calcDev(fin.s,prev.s);
     }
   }
   double calcDev(Matrix & s1, Matrix & s2 ){
