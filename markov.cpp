@@ -46,7 +46,7 @@ class State{
     Matrix dev(s1.m,1);
     double res = 0;
     for(int i = 0 ; i<s1.m ; i++){
-      res += (s1.mat[i][1] - s2.mat[i][1])^2;
+      res += (s1.mat[i][1] - s2.mat[i][1])*(s1.mat[i][1] - s2.mat[i][1]);
     }
     return res;
   }
