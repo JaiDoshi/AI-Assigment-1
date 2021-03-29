@@ -264,7 +264,7 @@ vector <vector<double>> backward_helper (int T, vector <int> & observations)
 	return b;
 }
 
-void backward()
+void backward(int number_iterations)
 {
 	int T;
 	
@@ -295,7 +295,7 @@ void backward()
 	
 	vector <double> prob_given_param (T, 0);
 	
-	for(int num_iterations=1; num_iterations<=10000; ++num_iterations)
+	while(number_iterations--)
 	{
 		vector <vector<double>> a = forward_helper(T, observations);
 		vector <vector<double>> b = backward_helper(T, observations);
@@ -395,7 +395,7 @@ int main()
 	
 	while(1)
 	{
-		moo.backward();
+		moo.backward(1);
 	}
 }
 
