@@ -30,7 +30,8 @@ class State{
   State equi(State initial /*,Matrix transProb*/){
     State fin = initial;
     State prev = fin;
-    Matrix dev(m,1) ;
+    Matrix dev(initial.m,1) ;
+    dev.mat[0][1] = 1;
     int i = 1;
     while(dev.mat[i-1][1] >= 0.0001 && i<100){
       prev.s = fin.s;
@@ -41,7 +42,7 @@ class State{
   }
   double calcDev(Matrix & s1, Matrix & s2 ){
 
-    if(s1.n != 1 || s2.n != 1){
+    if(s1.n != 1 || s2.n != 1 || s1.m != s2.m){
       return 1.00;
     }
     Matrix dev(s1.m,1);
@@ -52,10 +53,10 @@ class State{
     return res;
   }
 
-}
+};
 
 
-double prob(vector<int> v, Matrix transProb){
+double mult_prob(vector<int> v, Matrix transProb){
   double res = 1;
   for(int i = 1; i <v.size(); i++){
     res *= transProb[v[i-1]][v[i]];
