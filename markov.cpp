@@ -59,7 +59,7 @@ class State{
 double mult_prob(vector<int> v, Matrix transProb){
   double res = 1;
   for(int i = 1; i <v.size(); i++){
-    res *= transProb[v[i-1]][v[i]];
+    res *= transProb.mat[v[i-1]][v[i]];
   }
   return res;
 }
