@@ -32,10 +32,11 @@ class State{
     State prev = fin;
     Matrix dev(m,1) ;
     int i = 1;
-    while(dev[i-1] >= 0.0001){
+    while(dev.mat[i-1][1] >= 0.0001 && i<100){
       prev.s = fin.s;
       fin.s = fin.s.mult(fin.s,initial.transProb);
       dev.mat[i][1] = calcDev(fin.s,prev.s);
+      i++;
     }
   }
   double calcDev(Matrix & s1, Matrix & s2 ){
