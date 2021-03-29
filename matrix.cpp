@@ -17,6 +17,13 @@ Matrix(int m, int n)
 	mat.resize(m, vector<double>(n));
 }
 
+Matrix()
+{
+	this->m = 0;
+	this->n = 0;
+	mat.resize(0, vector<double>(0));
+}
+
 void take_input()
 {
 	for(int i=0; i<m; ++i)
