@@ -90,7 +90,7 @@ public:
 
 			for (int col = 0; col < s; col++){
 				//  Copying into temporary matrix only those element
-				//  which are not in given row and column
+				//  which are not in the given row and column
 				if (row != p && col != q){
 					temp.mat[i][j++] = m1.mat[row][col];
 
@@ -106,7 +106,7 @@ public:
 	}
 
 	/* Recursive function for finding determinant of matrix.
-	n is current dimension of A[][]. */
+	s is current dimension of m1 */
 	int dtm(Matrix & m1 ,  int s)
 	{
 		if(m1.m != m1.n){
@@ -166,8 +166,7 @@ public:
 		}
 	}
 
-	// Function to calculate and store inverse, returns false if
-	// matrix is singular
+
 	Matrix inverse(Matrix & m1)
 	{
 
@@ -187,7 +186,7 @@ public:
 		Matrix adj(m1.m , m1.n);
 		adjoint(m1,adj);
 		Matrix inverse(m1.n , m1.m);
-		// Find Inverse using formula "inverse(A) = adj(A)/det(A)"
+		
 		for (int i=0; i<m1.n ; i++)
 			for (int j=0; j<m1.n; j++)
 				inverse.mat[i][j] = adj.mat[i][j]/double(det);
