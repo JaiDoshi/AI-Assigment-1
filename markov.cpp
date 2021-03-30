@@ -1,7 +1,11 @@
 #include <vector>
 #include <iostream>
 #include<math.h>
+#ifndef MATRIX
+#define MATRIX
 #include "matrix.cpp"
+#endif
+
 using namespace std;
 
 class State{

@@ -1,4 +1,8 @@
+#ifndef MATRIX
+#define MATRIX
 #include "matrix.cpp"
+#endif
+
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -388,15 +392,4 @@ void backward(int number_iterations)
 }
 
 };
-
-int main()
-{
-	HMM moo (2, 2);
-	
-	while(1)
-	{
-		moo.backward(1);
-	}
-}
-
 
