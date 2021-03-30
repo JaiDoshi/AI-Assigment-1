@@ -23,9 +23,9 @@ class State{
   }
 
 
-  State nth(State initial /*,Matrix transProb*/){
+  State nth(State initial, int n /*,Matrix transProb*/){
     State fin = initial;
-    for(int i = 0 ; i<initial.m ; i++){
+    for(int i = 0 ; i<n ; i++){
       fin.s = fin.s.mult(fin.s,initial.transProb);
     }
     return fin;
