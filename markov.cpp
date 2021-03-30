@@ -43,6 +43,7 @@ class State{
       dev.mat[i][1] = calcDev(fin.s,prev.s);
       i++;
     }
+    return fin;
   }
   double calcDev(Matrix & s1, Matrix & s2 ){
 
