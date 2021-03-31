@@ -72,7 +72,7 @@ public:
 		cout << endl;
 	}
 
-	Matrix transpose(Matrix & m1){
+	static Matrix transpose(Matrix & m1){
 		Matrix mt(m1.n,m1.m);
 		for(int i = 0 ; i<m1.m ; i++){
 			for(int j = 0 ; j<m1.n ; j++){
@@ -82,7 +82,7 @@ public:
 		return mt;
 	}
 
-	void getCofactor(Matrix & m1, Matrix & temp, int p, int q, int s){
+	static void getCofactor(Matrix & m1, Matrix & temp, int p, int q, int s){
 		int i = 0, j = 0;
 
 		// Looping for each element of the matrix
@@ -107,7 +107,7 @@ public:
 
 	/* Recursive function for finding determinant of matrix.
 	s is current dimension of m1 */
-	int dtm(Matrix & m1 ,  int s)
+	static int dtm(Matrix & m1 ,  int s)
 	{
 		if(m1.m != m1.n){
 			cout << " non-square matrix";
@@ -138,7 +138,7 @@ public:
 	}
 
 	// Function to get adjoint of m1 in adj
-	void adjoint(Matrix & m1,Matrix & adj ){
+	static void adjoint(Matrix & m1,Matrix & adj ){
 
 		if (m1.n == 1){
 			adj.mat[0][0] = 1;
@@ -167,18 +167,18 @@ public:
 	}
 
 
-	Matrix inverse(Matrix & m1)
+	static Matrix inverse(Matrix & m1)
 	{
 
 		if(m1.m != m1.n){
-			cout << " non-square matrix";
+			cout << "Non-square matrix!" << endl;
 			Matrix err;
 			return err;
 		}
 
 		int det = dtm(m1,m1.n);
 		if (det == 0){
-			cout << "singular matrix";
+			cout << "Singular matrix!" << endl;
 			Matrix err;
 			return err;
 		}

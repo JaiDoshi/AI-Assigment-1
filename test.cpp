@@ -5,8 +5,16 @@ using namespace std;
 
 int main()
 {
-	Matrix a(1, 2);
+	Matrix a(3, 3);
 	a.take_input();
+	Matrix::transpose(a);
+	
+	a.print_matrix();
+	
+	Matrix::inverse(a);
+	
+	a.print_matrix();
+	
 	Matrix b(2, 3);
 	b.take_input();
 	/*
