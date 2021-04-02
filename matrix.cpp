@@ -37,6 +37,16 @@ public:
 
 		cout << endl;
 	}
+	void set_identity(){
+		for(int i = 0; i<this->m ; i++){
+			for(int j =0 ; j<this->n; j++){
+				if(i == j)
+					this->mat[i][j] = 1;
+			else
+				 this->mat[i][j] = 0;
+			 }
+		}
+	}
 
 	static Matrix mult(Matrix & m1, Matrix & m2){
 		if(m1.n != m2.m)
@@ -72,11 +82,11 @@ public:
 		cout << endl;
 	}
 
-	static Matrix transpose(Matrix & m1){
-		Matrix mt(m1.n,m1.m);
-		for(int i = 0 ; i<m1.m ; i++){
-			for(int j = 0 ; j<m1.n ; j++){
-				mt.mat[j][i] = m1.mat[i][j];
+ Matrix transpose(){
+		Matrix mt(this->n,this->m);
+		for(int i = 0 ; i<mt.m ; i++){
+			for(int j = 0 ; j<mt.n ; j++){
+				mt.mat[j][i] = this->mat[i][j];
 			}
 		}
 		return mt;
@@ -167,31 +177,57 @@ public:
 	}
 
 
-	static Matrix inverse(Matrix & m1)
+	Matrix inverse()
 	{
 
-		if(m1.m != m1.n){
+		if(this->m != this->n){
 			cout << "Non-square matrix!" << endl;
 			Matrix err;
 			return err;
 		}
 
-		int det = dtm(m1,m1.n);
+		int det = dtm(*this,this->n);
 		if (det == 0){
 			cout << "Singular matrix!" << endl;
 			Matrix err;
 			return err;
 		}
 		// Find adjoint
-		Matrix adj(m1.m , m1.n);
-		adjoint(m1,adj);
-		Matrix inverse(m1.n , m1.m);
-		
-		for (int i=0; i<m1.n ; i++)
-			for (int j=0; j<m1.n; j++)
+		Matrix adj(this->m , this->n);
+		adjoint(*this,adj);
+		Matrix inverse(this->n , this->m);
+
+		for (int i=0; i<this->n ; i++)
+			for (int j=0; j<this->n; j++)
 				inverse.mat[i][j] = adj.mat[i][j]/double(det);
 
 		return inverse;
 	}
 
+	Matrix operator + (Matrix  & a){
+		Matrix res(a.m,a.n);
+		if(a.m != this->m || a.n != this->n){
+			cout << " Invalid operation !";
+			return res;
+		}
+		for(int i = 0; i<a.m ; i++){
+			for(int j = 0; j<a.n ; j++){
+				res.mat[i][j] = this->mat[i][j] + a.mat[i][j];
+			}
+		}
+		return res;
+	}
+	Matrix operator - (Matrix & a){
+		Matrix res(a.m,a.n);
+		if(a.m != this->m || a.n != this->n){
+			cout << " Invalid operation !";
+			return res;
+		}
+		for(int i = 0; i<a.m ; i++){
+			for(int j = 0; j<a.n ; j++){
+				res.mat[i][j] = this->mat[i][j] - a.mat[i][j];
+			}
+		}
+		return res;
+	}
 };
