@@ -48,7 +48,7 @@ public:
 		}
 	}
 
-	static Matrix mult(Matrix & m1, Matrix & m2){
+	static Matrix mult(Matrix m1, Matrix m2){
 		if(m1.n != m2.m)
 		{
 			cout << "Invalid input!" << endl;
@@ -204,7 +204,7 @@ public:
 		return inverse;
 	}
 
-	Matrix operator + (Matrix  & a){
+	Matrix operator + (Matrix a){
 		Matrix res(a.m,a.n);
 		if(a.m != this->m || a.n != this->n){
 			cout << " Invalid operation !";
@@ -217,7 +217,7 @@ public:
 		}
 		return res;
 	}
-	Matrix operator - (Matrix & a){
+	Matrix operator - (Matrix a){
 		Matrix res(a.m,a.n);
 		if(a.m != this->m || a.n != this->n){
 			cout << " Invalid operation !";
