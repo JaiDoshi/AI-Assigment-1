@@ -14,7 +14,7 @@ public:
 	{
 		this->m = m;
 		this->n = n;
-		mat.resize(m, vector<double>(n));
+		mat.resize(m, vector<double>(n, 0));
 	}
 
 	Matrix()

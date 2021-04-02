@@ -1,6 +1,7 @@
 #include <iostream>
 #include "markov.cpp"
 #include "HMM.cpp"
+#include "MDP.cpp"
 
 using namespace std;
 
@@ -16,12 +17,11 @@ void hidden_markov()
 	
 	HMM model(num_hidden_states, num_observable_states);
 	
-	cout << endl << "Enter 1 for problem 1, 2 for problem 2, 3 for problem 3, or 0 to exit Hidden Markov Model." << endl;
-	
 	int option;
 	
 	while(1)
 	{
+		cout << endl << "Enter 1 for problem 1, 2 for problem 2, 3 for problem 3, or 0 to exit Hidden Markov Model." << endl;
 		cout << endl << "Enter the desired option: ";
 		cin >> option;
 		
@@ -61,17 +61,40 @@ void hidden_markov()
 	}
 }
 
+void markov_decision()
+{
+	int num_states;
+	int num_actions;
+	double discount_factor;
+	
+	cout << endl << "Enter the number of states: ";
+	cin >> num_states;
+	cout << "Enter the number of actions: ";
+	cin >> num_actions;
+	cout << "Enter the discount factor: ";
+	cin >> discount_factor;
+	
+	MDP model(num_states, num_actions, discount_factor);
+	
+	int num_iterations;
+	
+	cout << endl << "Enter the number of iterations: ";
+	cin >> num_iterations;
+	
+	model.getPolicy(num_iterations);
+}
+
 int main()
 {
-	cout << endl << "1 - Markov Model" << endl;
-	cout << "2 - Hidden Markov Model" << endl;
-	cout << "3 - Markov Decision Process" << endl;
-	cout << "4 - Kalman Filter" << endl;
 	
 	int option;
 	
 	while(1)
 	{
+		cout << endl << "1 - Markov Model" << endl;
+		cout << "2 - Hidden Markov Model" << endl;
+		cout << "3 - Markov Decision Process" << endl;
+		cout << "4 - Kalman Filter" << endl;
 		cout << endl << "Enter the desired option. Enter 0 to exit: ";
 		cin >> option;
 		
@@ -93,6 +116,10 @@ int main()
 			}
 			
 			case 3:
+			{
+				markov_decision();
+				break;
+			}
 			break;
 			
 			case 4:
