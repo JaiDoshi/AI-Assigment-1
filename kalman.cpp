@@ -62,12 +62,39 @@ public:
       throw std::runtime_error("Filter is not initialized!");
 
     //  x_hat_new = A * x_hat; // matrix with vector
+      double value = 0;
+      for(int i = 0 ; i<n0; i++){
+        value = 0;
+        for(int j = 0; j<n0; j++){
+          value += x_hat[i]* A.mat[i][j];
+        }
+        x_hat_new[i] = value;
+      }
 
       P = Matrix::mult(Matrix::mult(A,P),A.transpose()) + Q;
       K = Matrix::mult(Matrix::mult(P,C.transpose()),((Matrix::mult(Matrix::mult(C,P),C.transpose()) + R).inverse()));
 
 
     //  x_hat_new += K * (y - C*x_hat_new); // matrix with vector
+    value = 0;
+    vector<double> temp(n0,0);
+    for(int i = 0 ; i<n0; i++){
+      value = 0;
+      for(int j = 0; j<n0; j++){
+        value += x_hat_new[i]* C.mat[i][j];
+      }
+      temp[i] = value;
+    }
+    
+    value = 0;
+    for(int i = 0 ; i<n0; i++){
+      value = 0;
+      for(int j = 0; j<n0; j++){
+        value += (y[i]-temp[i])* K.mat[i][j];
+      }
+      x_hat_new[i] += value;
+    }
+
 
       P = Matrix::mult((I - Matrix::mult(K,C)),P);
       x_hat = x_hat_new;
