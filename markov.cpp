@@ -97,6 +97,7 @@ public:
 
   double sequence(vector<string> v){
     double res = 1;
+    res *= s.mat[0][mapping_sn[v[0]]];
     int a = 0, b = 0;
     for(int i = 1; i <v.size(); i++){
       a = mapping_sn[v[i-1]];
