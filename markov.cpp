@@ -61,13 +61,13 @@ public:
   string equi(){
     State fin = *this;
     State prev = fin;
-    Matrix dev(m,1) ;
+    Matrix dev(1,m) ;
     dev.mat[0][1] = 1;
     int i = 1;
-    while(dev.mat[i-1][1] >= 0.0001 && i<100){
+    while(dev.mat[0][i-1] >= 0.0001 && i<=100){
       prev.s = fin.s;
       fin.s = fin.s.mult(fin.s,transProb);
-      dev.mat[i][1] = calcDev(fin.s,prev.s);
+      dev.mat[0][i] = calcDev(fin.s,prev.s);
       i++;
     }
     int most_probable_state = 0 ,  res = 0;
@@ -82,13 +82,13 @@ public:
 
   double calcDev(Matrix & s1, Matrix & s2 ){
 
-    if(s1.n != 1 || s2.n != 1 || s1.m != s2.m){
+    if(s1.m != 1 || s2.m != 1 || s1.n != s2.n){
       return 1.00;
     }
-    Matrix dev(s1.m,1);
+    Matrix dev(1,s1.n);
     double res = 0;
-    for(int i = 0 ; i<s1.m ; i++){
-      res += (s1.mat[i][1] - s2.mat[i][1])*(s1.mat[i][1] - s2.mat[i][1]);
+    for(int i = 0 ; i< s1.n ; i++){
+      res += (s1.mat[0][i] - s2.mat[0][i])*(s1.mat[0][i] - s2.mat[0][i]);
     }
     return res;
   }
