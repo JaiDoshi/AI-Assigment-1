@@ -29,24 +29,27 @@ void markov()
 
 			case 1:{
 					int n;
-					cout << " Enter the desired number of iterations: ";
+					cout << endl << " Enter the desired number of iterations: ";
 					cin >> n;
 					model.nth(n);
+					break;
 			}
 
 			case 2:{
 				model.equi();
+				break;
 			}
 
 			case 3:{
-				cout<< "Enter the number of states in your sequence";
+				cout<< endl << "Enter the number of states in your sequence  ";
 				int num_sequence;
 				cin >> num_sequence;
 				vector<string> v(num_sequence);
-				cout << "Enter the sequence of states";
+				cout << endl << "Enter the sequence of states  ";
 				for(int i = 0 ; i<num_sequence ; i++)
 					cin >> v[i];
 				model.sequence(v);
+				break;
 			}
 		}
 	}

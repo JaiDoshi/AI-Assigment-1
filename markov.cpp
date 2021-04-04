@@ -33,12 +33,12 @@ public:
   		mapping_ns[i] = temp;
   	}
 
-    cout << "Enter the probabilities of initial matrix" ;
+    cout << "Enter the probabilities of initial matrix" << endl ;
     s.take_input();
     transProb.m = m;
     transProb.n = m;
     transProb.mat.resize(m,vector<double>(m));
-    cout << "Enter the values in transition probability matrix";
+    cout << "Enter the values in transition probability matrix" << endl;
     transProb.take_input();
   }
 
@@ -55,7 +55,8 @@ public:
         most_probable_state = i;
       }
     }
-    return mapping_ns[most_probable_state];
+    cout << mapping_ns[most_probable_state];
+    return  mapping_ns[most_probable_state];
   }
 
   string equi(){
@@ -77,7 +78,8 @@ public:
         most_probable_state = i;
       }
     }
-    return mapping_ns[most_probable_state];
+    cout << mapping_ns[most_probable_state];
+    return  mapping_ns[most_probable_state];
   }
 
   double calcDev(Matrix & s1, Matrix & s2 ){
@@ -101,7 +103,8 @@ public:
       b = mapping_sn[v[i]];
       res *= transProb.mat[a][b];
     }
-    return res;
+    cout << res;
+    return  res;
   }
 
 };
