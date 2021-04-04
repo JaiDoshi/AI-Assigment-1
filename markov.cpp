@@ -19,9 +19,11 @@ public:
   vector<string> mapping_ns;
   State(int m){
     this->m = m;
-    s.mat.resize(m,vector<double>(1));
-	
-	mapping_ns.resize(m);
+    s.m = 1;
+    s.n = m;
+    s.mat.resize(1,vector<double>(m));
+
+	  mapping_ns.resize(m);
 
     cout<< "Enter the names of the states -" << endl;
   	string temp = "";
@@ -33,6 +35,8 @@ public:
 
     cout << "Enter the probabilities of initial matrix" ;
     s.take_input();
+    transProb.m = m;
+    transProb.n = m;
     transProb.mat.resize(m,vector<double>(m));
     cout << "Enter the values in transition probability matrix";
     transProb.take_input();
