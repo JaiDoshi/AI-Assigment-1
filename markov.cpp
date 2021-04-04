@@ -20,6 +20,8 @@ public:
   State(int m){
     this->m = m;
     s.mat.resize(m,vector<double>(1));
+	
+	mapping_ns.resize(m);
 
     cout<< "Enter the names of the states -" << endl;
   	string temp = "";

@@ -153,7 +153,7 @@ int main()
 
 			case 1:
 			{
-
+				markov();
 				break;
 			}
 
