@@ -5,38 +5,86 @@
 
 using namespace std;
 
+void markov()
+{
+	int num_states;
+
+	cout << endl << "Enter the total number of states: ";
+	cin >> num_states;
+
+	State model(num_states);
+
+	int option;
+
+	while(1)
+	{
+		cout << endl << "Enter 1 for calculating nth state, 2 for calculating equilibrium state, 3 for calculating probability of a sequence of states, or 0 to exit Markov Model." << endl;
+		cout << endl << "Enter the desired option: ";
+		cin >> option;
+
+		switch(option)
+		{
+			case 0:
+			return;
+
+			case 1:{
+					int n;
+					cout << " Enter the desired number of iterations: ";
+					cin >> n;
+					model.nth(n);
+			}
+
+			case 2:{
+				model.equi();
+			}
+
+			case 3:{
+				cout<< "Enter the number of states in your sequence";
+				int num_sequence;
+				cin >> num_sequence;
+				vector<string> v(num_sequence);
+				cout << "Enter the sequence of states";
+				for(int i = 0 ; i<num_sequence ; i++)
+					cin >> v[i];
+				model.sequence(v);
+			}
+		}
+	}
+}
+
+
 void hidden_markov()
-{	
+{
 	int num_hidden_states;
 	int num_observable_states;
-	
+
 	cout << endl << "Enter the number of hidden states: ";
 	cin >> num_hidden_states;
 	cout << "Enter the number of observable states: ";
 	cin >> num_observable_states;
-	
+
 	HMM model(num_hidden_states, num_observable_states);
-	
+
 	int option;
-	
+
 	while(1)
 	{
 		cout << endl << "Enter 1 for problem 1, 2 for problem 2, 3 for problem 3, or 0 to exit Hidden Markov Model." << endl;
 		cout << endl << "Enter the desired option: ";
 		cin >> option;
-		
+
 		switch(option)
 		{
 			case 0:
 			return;
-			
+
 			case 1:
 			{
 				double probability = model.forward();
 				cout << endl << "The probability of the given observation sequence is: " << probability << endl;
 				break;
 			}
-		
+
 			case 2:
 			{
 				vector <string> most_probable_states = model.Viterbi();
@@ -48,7 +96,7 @@ void hidden_markov()
 				cout << endl;
 				break;
 			}
-		
+
 			case 3:
 			{
 				cout << endl << "Enter the desired number of iterations: " << endl;
@@ -66,29 +114,29 @@ void markov_decision()
 	int num_states;
 	int num_actions;
 	double discount_factor;
-	
+
 	cout << endl << "Enter the number of states: ";
 	cin >> num_states;
 	cout << "Enter the number of actions: ";
 	cin >> num_actions;
 	cout << "Enter the discount factor: ";
 	cin >> discount_factor;
-	
+
 	MDP model(num_states, num_actions, discount_factor);
-	
+
 	int num_iterations;
-	
+
 	cout << endl << "Enter the number of iterations: ";
 	cin >> num_iterations;
-	
+
 	model.getPolicy(num_iterations);
 }
 
 int main()
 {
-	
+
 	int option;
-	
+
 	while(1)
 	{
 		cout << endl << "1 - Markov Model" << endl;
@@ -97,31 +145,31 @@ int main()
 		cout << "4 - Kalman Filter" << endl;
 		cout << endl << "Enter the desired option. Enter 0 to exit: ";
 		cin >> option;
-		
+
 		switch(option)
 		{
 			case 0:
 			return 0;
-			
+
 			case 1:
 			{
-				
+
 				break;
 			}
-			
+
 			case 2:
 			{
 				hidden_markov();
 				break;
 			}
-			
+
 			case 3:
 			{
 				markov_decision();
 				break;
 			}
 			break;
-			
+
 			case 4:
 			break;
 		}
