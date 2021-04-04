@@ -99,7 +99,7 @@ void hidden_markov()
 
 			case 3:
 			{
-				cout << endl << "Enter the desired number of iterations: " << endl;
+				cout << endl << "Enter the desired number of iterations (recommended=100): " << endl;
 				int num_iterations;
 				cin >> num_iterations;
 				model.backward(num_iterations);
@@ -126,7 +126,7 @@ void markov_decision()
 
 	int num_iterations;
 
-	cout << endl << "Enter the number of iterations: ";
+	cout << endl << "Enter the number of iterations (recommended=100): ";
 	cin >> num_iterations;
 
 	model.getPolicy(num_iterations);

@@ -169,8 +169,7 @@ void getPolicy(int num_iterations)
 	{
 		for(int j=0; j<num_actions; ++j)
 		{
-			if(i==j)
-				policy->mat[i][j] = 1;
+			policy->mat[i][j] = (double) 1/num_actions;
 		}
 	}
 	
