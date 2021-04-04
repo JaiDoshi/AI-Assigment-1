@@ -3,42 +3,33 @@
 #include "matrix.cpp"
 using namespace std;
 class KalmanFilter {
-  /**
-  *   A - System dynamics matrix
-  *   C - Output matrix
-  *   Q - Process noise covariance
-  *   R - Measurement noise covariance
-  *   P - Estimate error covariance
+public:
+
+  /*
+     A - System dynamics matrix
+     C - Output matrix
+     Q - Process noise covariance
+     R - Measurement noise covariance
+     P - Estimate error covariance
+     K - Kalman Gain
   */
 
-public:
   Matrix A,C,Q,R,P,K,P0;
 
-  // System dimensions
-  int m0,n0;
 
-  // Initial and current time
-  double t0, t;
+  int m0,n0; // // System dimensions
+  double t0, t, dt; // time
+  bool initialized; //filter Initialized?
+  Matrix I; //identity matrix
+  vector<double> x_hat, x_hat_new; //// Estimated states
 
-  // Discrete time step
-  double dt;
-
-  // Is the filter initialized?
-  bool initialized;
-
-  // n-size identity
-  Matrix I;
-
-  // Estimated states
-  vector<double> x_hat, x_hat_new;
+  KalmanFilter() {}
 
   KalmanFilter(double dt, const Matrix A, const Matrix C, const Matrix Q, const Matrix R, const Matrix P):
   A(A), C(C), Q(Q), R(R), P0(P),m0(C.m), n0(A.m), dt(dt), initialized(false),I(n0, n0), x_hat(n0), x_hat_new(n0)
     {
       I.set_identity();
     }
-
-    KalmanFilter() {}
 
     void init(double t0, const vector<double> x0) {
       x_hat = x0;
@@ -52,7 +43,7 @@ public:
       fill(x_hat.begin(), x_hat.end(), 0);
       P = P0;
       t0 = 0;
-      t = t0;
+      t = 0;
       initialized = true;
     }
 
@@ -61,7 +52,9 @@ public:
       if(!initialized)
       throw std::runtime_error("Filter is not initialized!");
 
-    //  x_hat_new = A * x_hat; // matrix with vector
+// *********PREDICT*************
+
+    // 1). x_hat_new = A * x_hat
       double value = 0;
       for(int i = 0 ; i<n0; i++){
         value = 0;
@@ -71,11 +64,15 @@ public:
         x_hat_new[i] = value;
       }
 
+      // 2). P = A*P*A.transpose() + Q
       P = Matrix::mult(Matrix::mult(A,P),A.transpose()) + Q;
+
+// *********UPDATE***************
+
+    // 1). K = P*C.transpose() / (C*P*C.transpose() + R)
       K = Matrix::mult(Matrix::mult(P,C.transpose()),((Matrix::mult(Matrix::mult(C,P),C.transpose()) + R).inverse()));
 
-
-    //  x_hat_new += K * (y - C*x_hat_new); // matrix with vector
+    // 2).  x_hat_new =   x_hat_new + K * (y - C*x_hat_new)
     value = 0;
     vector<double> temp(n0,0);
     for(int i = 0 ; i<n0; i++){
@@ -85,7 +82,7 @@ public:
       }
       temp[i] = value;
     }
-    
+
     value = 0;
     for(int i = 0 ; i<n0; i++){
       value = 0;
@@ -95,10 +92,10 @@ public:
       x_hat_new[i] += value;
     }
 
-
+    // 3).  P = (I - K*C)*P
       P = Matrix::mult((I - Matrix::mult(K,C)),P);
-      x_hat = x_hat_new;
 
+      x_hat = x_hat_new;
       t += dt;
     }
 
