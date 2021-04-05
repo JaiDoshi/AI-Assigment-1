@@ -2,6 +2,7 @@
 #include "markov.cpp"
 #include "HMM.cpp"
 #include "MDP.cpp"
+#include "kalman.cpp"
 
 using namespace std;
 
@@ -28,11 +29,11 @@ void markov()
 			return;
 
 			case 1:{
-					int n;
-					cout << endl << " Enter the desired number of iterations: ";
-					cin >> n;
-					model.nth(n);
-					break;
+				int n;
+				cout << endl << " Enter the desired number of iterations: ";
+				cin >> n;
+				model.nth(n);
+				break;
 			}
 
 			case 2:{
@@ -47,7 +48,7 @@ void markov()
 				vector<string> v(num_sequence);
 				cout << endl << "Enter the sequence of states  ";
 				for(int i = 0 ; i<num_sequence ; i++)
-					cin >> v[i];
+				cin >> v[i];
 				model.sequence(v);
 				break;
 			}
@@ -135,6 +136,32 @@ void markov_decision()
 	model.getPolicy(num_iterations);
 }
 
+void kalman(){
+	int n , m;
+	double dt;
+	cout << endl << "Enter the number of states(n)";
+	cin >> n;
+	cout << endl << "Enter the number of outputs(m)";
+	cin >> m;
+	cout << endl << "Enter the timestep";
+	cin >> dt;
+	Matrix A(n,n) , C(m,n) , Q(n,n) , R(m,m) , P(n,n);
+	cout << endl << " Enter the values for matrices A(sytem dynamics : nXn ), C(output : mXn)";
+	cout << " Q(Process noise covariance : nXn), R(Measurement noise covariance : mXm), P(Estimate error covariance nXn) (in this order)" << endl;
+	A.take_input(); C.take_input() ; Q.take_input() ; R.take_input() ; P.take_input();
+
+	KalmanFilter(dt, A, C, Q, R, P);
+	int x;
+	cout << " Enter the number of (noisy) measurements";
+	cin >> x;
+	vector<double> measurements(x);
+	cout << " Enter the  List of noisy position measurements (y) " << endl;
+	for(auto i : measurements)
+	cin >> i;
+	vector<double> x0(n);
+
+}
+
 int main()
 {
 
@@ -174,6 +201,7 @@ int main()
 			break;
 
 			case 4:
+				kalman();
 			break;
 		}
 	}
