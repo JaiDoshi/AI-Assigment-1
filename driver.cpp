@@ -6,6 +6,11 @@
 
 using namespace std;
 
+void printTranspose(vector<double> v){
+	for(auto i : v)
+	cout << i << endl;
+}
+
 void markov()
 {
 	int num_states;
@@ -138,27 +143,50 @@ void markov_decision()
 
 void kalman(){
 	int n , m;
-	double dt;
+	double dt , t =0;
 	cout << endl << "Enter the number of states(n)";
 	cin >> n;
 	cout << endl << "Enter the number of outputs(m)";
 	cin >> m;
 	cout << endl << "Enter the timestep";
 	cin >> dt;
+	
+	vector<double> x0(n);
+	cout << " Enter the initial states " ;
+	for(auto i : x0)
+	cin >> i;
+
 	Matrix A(n,n) , C(m,n) , Q(n,n) , R(m,m) , P(n,n);
 	cout << endl << " Enter the values for matrices A(sytem dynamics : nXn ), C(output : mXn)";
-	cout << " Q(Process noise covariance : nXn), R(Measurement noise covariance : mXm), P(Estimate error covariance nXn) (in this order)" << endl;
+	cout << endl << " Q(Process noise covariance : nXn), R(Measurement noise covariance : mXm), P(Estimate error covariance nXn) (in this order)" << endl;
 	A.take_input(); C.take_input() ; Q.take_input() ; R.take_input() ; P.take_input();
 
-	KalmanFilter(dt, A, C, Q, R, P);
+	KalmanFilter kf(dt, A, C, Q, R, P);
 	int x;
 	cout << " Enter the number of (noisy) measurements";
 	cin >> x;
+
 	vector<double> measurements(x);
 	cout << " Enter the List of noisy position measurements (y) " << endl;
 	for(auto i : measurements)
-		cin >> i;
-	vector<double> x0(n);
+	cin >> i;
+
+	kf.init(t,x0);
+	vector<double> y(m);
+
+	cout << "t = " << t << ", " << "x_hat[0]: ";
+	printTranspose(kf.state());
+	cout << endl;
+	for(int i = 0; i < measurements.size(); i++) {
+		t += dt;
+		y[0] = measurements[i];
+		kf.update(y);
+		cout << "t = " << t << ", " << "y[" << i << "] = ";
+		printTranspose(y);
+		cout << ", x_hat[" << i << "] = ";
+		printTranspose(kf.state());
+		cout << endl;
+	}
 
 }
 
@@ -201,7 +229,7 @@ int main()
 			break;
 
 			case 4:
-				kalman();
+			kalman();
 			break;
 		}
 	}
