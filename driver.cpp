@@ -144,24 +144,24 @@ void markov_decision()
 void kalman(){
 	int n , m;
 	double dt , t =0;
-	cout << endl << "Enter the number of states(n)";
+	cout << endl << "Enter the number of state variables(n)";
 	cin >> n;
 	cout << endl << "Enter the number of outputs(m)";
 	cin >> m;
 	cout << endl << "Enter the timestep";
 	cin >> dt;
-	
+
 	vector<double> x0(n);
-	cout << " Enter the initial states " ;
+	cout << " Enter the initial values of state variables " ;
 	for(auto i : x0)
-	cin >> i;
+		cin >> i;
 
-	Matrix A(n,n) , C(m,n) , Q(n,n) , R(m,m) , P(n,n);
+	Matrix A(n,n) , C(m,n) , Q(n,n) , R(m,m) , P0(n,n);
 	cout << endl << " Enter the values for matrices A(sytem dynamics : nXn ), C(output : mXn)";
-	cout << endl << " Q(Process noise covariance : nXn), R(Measurement noise covariance : mXm), P(Estimate error covariance nXn) (in this order)" << endl;
-	A.take_input(); C.take_input() ; Q.take_input() ; R.take_input() ; P.take_input();
+	cout << endl << " Q(Process noise covariance : nXn), R(Measurement noise covariance : mXm), P0(initial estimate error covariance nXn) (in this order)" << endl;
+	A.take_input(); C.take_input() ; Q.take_input() ; R.take_input() ; P0.take_input();
 
-	KalmanFilter kf(dt, A, C, Q, R, P);
+	KalmanFilter kf(dt, A, C, Q, R, P0);
 	int x;
 	cout << " Enter the number of (noisy) measurements";
 	cin >> x;
@@ -169,7 +169,7 @@ void kalman(){
 	vector<double> measurements(x);
 	cout << " Enter the List of noisy position measurements (y) " << endl;
 	for(auto i : measurements)
-	cin >> i;
+		cin >> i;
 
 	kf.init(t,x0);
 	vector<double> y(m);
