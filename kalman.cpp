@@ -1,6 +1,9 @@
 #include <iostream>
 #include <stdexcept>
+#ifndef MATRIX
+#define MATRIX
 #include "matrix.cpp"
+#endif
 using namespace std;
 class KalmanFilter {
 public:
