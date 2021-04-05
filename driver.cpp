@@ -157,7 +157,7 @@ void kalman(){
 	vector<double> measurements(x);
 	cout << " Enter the List of noisy position measurements (y) " << endl;
 	for(auto i : measurements)
-	cin >> i;
+		cin >> i;
 	vector<double> x0(n);
 
 }
