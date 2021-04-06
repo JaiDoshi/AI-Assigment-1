@@ -34,17 +34,17 @@ public:
 				cin >> mat[i][j];
 			}
 		}
-
 		cout << endl;
 	}
+
 	void set_identity(){
 		for(int i = 0; i<this->m ; i++){
 			for(int j =0 ; j<this->n; j++){
 				if(i == j)
-					this->mat[i][j] = 1;
-			else
-				 this->mat[i][j] = 0;
-			 }
+				this->mat[i][j] = 1;
+				else
+				this->mat[i][j] = 0;
+			}
 		}
 	}
 
@@ -82,7 +82,7 @@ public:
 		cout << endl;
 	}
 
- Matrix transpose(){
+	Matrix transpose(){
 		Matrix mt(this->n,this->m);
 		for(int i = 0 ; i<mt.m ; i++){
 			for(int j = 0 ; j<mt.n ; j++){
@@ -230,19 +230,17 @@ public:
 		}
 		return res;
 	}
-	
-	Matrix operator = (Matrix a)
-	{
-		Matrix res(a.m,a.n);
-		
-		for(int i=0; i<this->m; ++i)
-		{
-			for(int j=0; j<this->n; ++j)
-			{
-				res.mat[i][j] = a.mat[i][j];
+
+	void operator = (Matrix a){
+		this->m = a.m;
+		this->n = a.n;
+		this->mat.resize(a.m,vector<double>(a.n));
+
+		for(int i=0; i<this->m; ++i){
+			for(int j=0; j<this->n; ++j){
+				this->mat[i][j] = a.mat[i][j];
 			}
 		}
-		
-		return res;
+		return;
 	}
 };
