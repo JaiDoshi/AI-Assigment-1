@@ -92,8 +92,8 @@ public:
 
     // 2).  x_hat_new =   x_hat_new + K * (y - C*x_hat_new)
     value = 0;
-    vector<double> temp(n0,0);
-    for(int i = 0 ; i<n0; i++){
+    vector<double> temp(m0,0);
+    for(int i = 0 ; i<m0; i++){
       value = 0;
       for(int j = 0; j<n0; j++){
         value += C.mat[i][j]*x_hat_new[j];
@@ -103,7 +103,7 @@ public:
 
     for(int i = 0 ; i<n0; i++){
       value = 0;
-      for(int j = 0; j<n0; j++){
+      for(int j = 0; j<m0; j++){
         value += (y[j]-temp[j])* K.mat[i][j];
       }
       x_hat_new[i] += value;

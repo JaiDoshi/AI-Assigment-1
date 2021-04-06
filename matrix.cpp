@@ -84,8 +84,8 @@ public:
 
 	Matrix transpose(){
 		Matrix mt(this->n,this->m);
-		for(int i = 0 ; i<mt.m ; i++){
-			for(int j = 0 ; j<mt.n ; j++){
+		for(int i = 0 ; i<this->m ; i++){
+			for(int j = 0 ; j<this->n ; j++){
 				mt.mat[j][i] = this->mat[i][j];
 			}
 		}
