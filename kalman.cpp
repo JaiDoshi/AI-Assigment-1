@@ -29,8 +29,13 @@ public:
   KalmanFilter() {}
 
   KalmanFilter(double dt, const Matrix A, const Matrix C, const Matrix Q, const Matrix R, const Matrix P):
-  A(A), C(C), Q(Q), R(R), P0(P), m0(C.m), n0(A.m), dt(dt), initialized(false)
+  m0(C.m), n0(A.m), dt(dt), initialized(false)
     {
+	  this->A = A;
+	  this->C = C;
+	  this->Q = Q;
+	  this->R = R;
+	  this->P = P;
       I.m = n0; I.n = n0;
       I.mat.resize(n0,vector<double>(n0));
       x_hat.resize(n0);

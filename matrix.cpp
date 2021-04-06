@@ -230,4 +230,19 @@ public:
 		}
 		return res;
 	}
+	
+	Matrix operator = (Matrix a)
+	{
+		Matrix res(a.m,a.n);
+		
+		for(int i=0; i<this->m; ++i)
+		{
+			for(int j=0; j<this->n; ++j)
+			{
+				res.mat[i][j] = a.mat[i][j];
+			}
+		}
+		
+		return res;
+	}
 };
