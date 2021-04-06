@@ -31,6 +31,7 @@ public:
   KalmanFilter(double dt, const Matrix A, const Matrix C, const Matrix Q, const Matrix R, const Matrix P):
   A(A), C(C), Q(Q), R(R), P0(P), m0(C.m), n0(A.m), dt(dt), initialized(false)
     {
+      I.m = n0; I.n = n0;
       I.mat.resize(n0,vector<double>(n0));
       x_hat.resize(n0);
       x_hat_new.resize(n0);
@@ -39,6 +40,8 @@ public:
 
     void init(double t0, const vector<double> x0) {
       this->x_hat = x0;
+      P.m = n0; P.n = n0;
+      P.mat.resize(n0,vector<double>(n0));
       P = P0;
       this->t0 = t0;
       t = t0;
@@ -47,6 +50,8 @@ public:
 
     void init() {
       fill(this->x_hat.begin(), this->x_hat.end(), 0);
+      P.m = n0; P.n = n0;
+      P.mat.resize(n0,vector<double>(n0));
       P = P0;
       t0 = 0;
       t = 0;
@@ -76,6 +81,8 @@ public:
 // *********UPDATE***************
 
     // 1). K = P*C.transpose() / (C*P*C.transpose() + R)
+      K.m = n0 ; K.n = m0;
+      K.mat.resize(n0,vector<double>(m0));
       K = Matrix::mult(Matrix::mult(P,C.transpose()),((Matrix::mult(Matrix::mult(C,P),C.transpose()) + R).inverse()));
 
     // 2).  x_hat_new =   x_hat_new + K * (y - C*x_hat_new)
