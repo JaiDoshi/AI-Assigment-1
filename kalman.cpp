@@ -35,7 +35,7 @@ public:
 	  this->C = C;
 	  this->Q = Q;
 	  this->R = R;
-	  this->P = P;
+	  this->P0 = P;
       I.m = n0; I.n = n0;
       I.mat.resize(n0,vector<double>(n0));
       x_hat.resize(n0);
